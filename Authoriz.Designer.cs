@@ -35,9 +35,8 @@
             this.Entry = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkBoxShowPassword = new System.Windows.Forms.CheckBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -72,7 +71,7 @@
             this.textBox1.BackColor = System.Drawing.Color.Gainsboro;
             this.textBox1.Font = new System.Drawing.Font("Courier New", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox1.ForeColor = System.Drawing.Color.DimGray;
-            this.textBox1.Location = new System.Drawing.Point(225, 116);
+            this.textBox1.Location = new System.Drawing.Point(225, 126);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(328, 28);
@@ -86,15 +85,17 @@
             this.textBox2.BackColor = System.Drawing.Color.Gainsboro;
             this.textBox2.Font = new System.Drawing.Font("Courier New", 10.2F);
             this.textBox2.ForeColor = System.Drawing.Color.DimGray;
-            this.textBox2.Location = new System.Drawing.Point(225, 150);
+            this.textBox2.Location = new System.Drawing.Point(225, 160);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
+            this.textBox2.PasswordChar = '*';
             this.textBox2.Size = new System.Drawing.Size(328, 28);
             this.textBox2.TabIndex = 3;
             this.textBox2.Text = "Пароль";
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox2.UseSystemPasswordChar = true;
             this.textBox2.Click += new System.EventHandler(this.textBox2_Click);
+            this.textBox2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBox2_MouseDown);
+            this.textBox2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.textBox2_MouseUp);
             // 
             // Entry
             // 
@@ -125,7 +126,6 @@
             // 
             this.groupBox1.BackColor = System.Drawing.Color.AliceBlue;
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.checkBoxShowPassword);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.Entry);
             this.groupBox1.Controls.Add(this.pictureBox1);
@@ -140,28 +140,6 @@
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             // 
-            // checkBoxShowPassword
-            // 
-            this.checkBoxShowPassword.AutoSize = true;
-            this.checkBoxShowPassword.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.checkBoxShowPassword.Location = new System.Drawing.Point(225, 189);
-            this.checkBoxShowPassword.Name = "checkBoxShowPassword";
-            this.checkBoxShowPassword.Size = new System.Drawing.Size(142, 20);
-            this.checkBoxShowPassword.TabIndex = 7;
-            this.checkBoxShowPassword.Text = "Показать пароль";
-            this.checkBoxShowPassword.UseVisualStyleBackColor = true;
-            this.checkBoxShowPassword.CheckedChanged += new System.EventHandler(this.checkBoxShowPassword_CheckedChanged);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::ProfitFurniture.Properties.Resources.iconicAuthoriz_;
-            this.pictureBox1.Location = new System.Drawing.Point(95, 90);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(124, 121);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -173,6 +151,16 @@
             this.label2.TabIndex = 8;
             this.label2.Text = "изменить пароль";
             this.label2.Click += new System.EventHandler(this.ChangePassword_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::ProfitFurniture.Properties.Resources.iconicAuthoriz_;
+            this.pictureBox1.Location = new System.Drawing.Point(95, 90);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(124, 121);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
             // 
             // Authoriz
             // 
@@ -203,7 +191,6 @@
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.CheckBox checkBoxShowPassword;
         private System.Windows.Forms.Label label2;
     }
 }

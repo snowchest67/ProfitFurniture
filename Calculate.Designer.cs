@@ -34,6 +34,7 @@
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.какСтарыйToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.какНовыйToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.создатьПустуюКнигуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.создатьОтчётToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчётВWordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчетПоКлиентамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,6 +44,7 @@
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.добавитьЗначениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -55,10 +57,11 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.файлToolStripMenuItem,
             this.создатьОтчётToolStripMenuItem,
-            this.расчитатьToolStripMenuItem});
+            this.расчитатьToolStripMenuItem,
+            this.добавитьЗначениеToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -66,7 +69,8 @@
             // 
             this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.открытьToolStripMenuItem,
-            this.сохранитьToolStripMenuItem});
+            this.сохранитьToolStripMenuItem,
+            this.создатьПустуюКнигуToolStripMenuItem});
             this.файлToolStripMenuItem.Font = new System.Drawing.Font("Bookman Old Style", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.файлToolStripMenuItem.ForeColor = System.Drawing.Color.AliceBlue;
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
@@ -78,7 +82,7 @@
             this.открытьToolStripMenuItem.BackColor = System.Drawing.Color.LightSlateGray;
             this.открытьToolStripMenuItem.ForeColor = System.Drawing.Color.AliceBlue;
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(306, 26);
             this.открытьToolStripMenuItem.Text = "Открыть";
             this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
             // 
@@ -90,7 +94,7 @@
             this.какНовыйToolStripMenuItem});
             this.сохранитьToolStripMenuItem.ForeColor = System.Drawing.Color.AliceBlue;
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(306, 26);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             // 
             // какСтарыйToolStripMenuItem
@@ -110,6 +114,15 @@
             this.какНовыйToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
             this.какНовыйToolStripMenuItem.Text = "Сохранить как";
             this.какНовыйToolStripMenuItem.Click += new System.EventHandler(this.какНовыйToolStripMenuItem_Click);
+            // 
+            // создатьПустуюКнигуToolStripMenuItem
+            // 
+            this.создатьПустуюКнигуToolStripMenuItem.BackColor = System.Drawing.Color.LightSlateGray;
+            this.создатьПустуюКнигуToolStripMenuItem.ForeColor = System.Drawing.Color.AliceBlue;
+            this.создатьПустуюКнигуToolStripMenuItem.Name = "создатьПустуюКнигуToolStripMenuItem";
+            this.создатьПустуюКнигуToolStripMenuItem.Size = new System.Drawing.Size(306, 26);
+            this.создатьПустуюКнигуToolStripMenuItem.Text = "Создать пустую книгу";
+            this.создатьПустуюКнигуToolStripMenuItem.Click += new System.EventHandler(this.создатьПустуюКнигуToolStripMenuItem_Click);
             // 
             // создатьОтчётToolStripMenuItem
             // 
@@ -157,9 +170,9 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel1,
             this.toolStripComboBox1});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 30);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 28);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(800, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(800, 28);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -183,17 +196,26 @@
             this.dataGridView1.BackgroundColor = System.Drawing.Color.AliceBlue;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 61);
+            this.dataGridView1.Location = new System.Drawing.Point(0, 56);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(800, 389);
+            this.dataGridView1.Size = new System.Drawing.Size(800, 394);
             this.dataGridView1.TabIndex = 2;
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "Excel|*.xlsx";
+            // 
+            // добавитьЗначениеToolStripMenuItem
+            // 
+            this.добавитьЗначениеToolStripMenuItem.Font = new System.Drawing.Font("Bookman Old Style", 10.2F, System.Drawing.FontStyle.Bold);
+            this.добавитьЗначениеToolStripMenuItem.ForeColor = System.Drawing.Color.AliceBlue;
+            this.добавитьЗначениеToolStripMenuItem.Name = "добавитьЗначениеToolStripMenuItem";
+            this.добавитьЗначениеToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
+            this.добавитьЗначениеToolStripMenuItem.Text = "Добавить значение";
+            this.добавитьЗначениеToolStripMenuItem.Click += new System.EventHandler(this.добавитьЗначениеToolStripMenuItem_Click);
             // 
             // Calculate
             // 
@@ -236,5 +258,7 @@
         private System.Windows.Forms.ToolStripMenuItem какНовыйToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem отчётВWordToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem отчетПоКлиентамToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem создатьПустуюКнигуToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem добавитьЗначениеToolStripMenuItem;
     }
 }

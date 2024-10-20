@@ -16,6 +16,7 @@ using System.Text.RegularExpressions;
 using Microsoft.Office.Interop.Word;
 using Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
+using Microsoft.VisualBasic;
 namespace ProfitFurniture
 {
     public partial class Calculate : Form
@@ -84,6 +85,7 @@ namespace ProfitFurniture
 
         private void расчитатьToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
                 if (!row.IsNewRow)
@@ -232,6 +234,7 @@ namespace ProfitFurniture
             {
                 Excel.Application exApp = new Excel.Application();
                 Excel.Workbook workbook = exApp.Workbooks.Add();
+                Excel.Worksheet defaultSheet = workbook.Worksheets[1];
                 int index = toolStripComboBox1.Items.Count - 1;
                 System.Data.DataTable table;
                 for (int item = toolStripComboBox1.Items.Count - 1; item >= 0; item--)
@@ -259,6 +262,7 @@ namespace ProfitFurniture
                 }
                 table = tableCollection[Convert.ToString(toolStripComboBox1.Items[0])];
                 dataGridView1.Invoke(new System.Action(() => dataGridView1.DataSource = table));
+                defaultSheet.Delete();
                 exApp.Visible = true;
             };
 
@@ -295,7 +299,7 @@ namespace ProfitFurniture
             worker.DoWork += (s, args) =>
             {
                 Excel.Application exApp = new Excel.Application();
-                Excel.Workbook workbook = exApp.Workbooks.Open(filename); 
+                Excel.Workbook workbook = exApp.Workbooks.Open(filename);
                 int index = toolStripComboBox1.Items.Count - 1;
                 System.Data.DataTable table;
 
@@ -487,6 +491,7 @@ namespace ProfitFurniture
                 // Создаем новую книгу Excel
                 Excel.Application exApp = new Excel.Application();
                 Excel.Workbook workbook = exApp.Workbooks.Add();
+                Excel.Worksheet defaultSheet = workbook.Worksheets[1];
 
                 foreach (var entry in duplicates)
                 {
@@ -531,7 +536,7 @@ namespace ProfitFurniture
 
                     worker.ReportProgress(duplicates.Count);
                 }
-
+                defaultSheet.Delete();
                 exApp.Visible = true;
             };
 
@@ -552,8 +557,132 @@ namespace ProfitFurniture
         {
             System.Windows.Forms.Application.Exit();
         }
-    }
-    
-    
-}
 
+        private void создатьПустуюКнигуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Запрашиваем путь для сохранения файла
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+                saveFileDialog1.Filter = "Excel Files|*.xlsx";
+                saveFileDialog1.Title = "Сохранить Excel файл";
+                DialogResult res = saveFileDialog1.ShowDialog();
+
+                if (res == DialogResult.OK)
+                {
+                    string filename = saveFileDialog1.FileName;
+
+                    // Запрашиваем название книги, количество листов и их названия
+                    int sheetCount = int.Parse(Interaction.InputBox("Введите количество листов:", "Количество листов"));
+                    List<string> sheetNames = new List<string>();
+                    for (int i = 0; i < sheetCount; i++)
+                    {
+                        sheetNames.Add(Interaction.InputBox($"Введите название листа {i + 1}:", "Название листа"));
+                    }
+
+                    // Создаем Excel приложение
+                    Excel.Application excelApp = new Excel.Application();
+                    Excel.Workbook workbook = excelApp.Workbooks.Add();
+
+                    // Удаляем автоматически созданный лист
+                    Excel.Worksheet defaultSheet = workbook.Worksheets[1];
+                    
+
+                    // Добавляем листы в обратном порядке
+                    for (int i = sheetCount - 1; i >= 0; i--)
+                    {
+                        Excel.Worksheet worksheet = workbook.Worksheets.Add();
+                        worksheet.Name = sheetNames[i];
+
+                        // Создаем заголовки по шаблону
+                        string[] headers = { "Дата", "Номер", "ДСП", "Раскрой", "Кромка", "Z", "Двери", "Пф, ф.", "Тр.", "1-Д", "2-М", "Цена", "Сборка", "Бригада", "С/Стоим.", "Прибыль", "Рент.", "Тип мебели", "Адрес", "Клиент" };
+                        for (int j = 0; j < headers.Length; j++)
+                        {
+                            worksheet.Cells[1, j + 1] = headers[j];
+                            Excel.Range headerRange = worksheet.Cells[1, j + 1];
+                            headerRange.Font.Bold = true;
+                            headerRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        }
+                    }
+                    defaultSheet.Delete();
+                    // Сохраняем файл
+                    workbook.SaveAs(filename);
+                    workbook.Close();
+                    excelApp.Quit();
+
+                    // Освобождаем ресурсы
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp);
+
+                    // Вызываем существующее событие
+                    OpenExcelFile(filename);
+                }
+                else
+                {
+                    throw new Exception("Файл не выбран");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void добавитьЗначениеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedCells.Count > 0)
+            {
+                int rowIndex = dataGridView1.SelectedCells[0].RowIndex;
+                int columnIndex = dataGridView1.SelectedCells[0].ColumnIndex;
+
+                switch (columnIndex)
+                {
+                    case 0:
+                        // Открыть форму с DateTimePicker и выбрать дату
+                        using (var dateForm = new DateForm())
+                        {
+                            if (dateForm.ShowDialog() == DialogResult.OK)
+                            {
+                                dataGridView1.Rows[rowIndex].Cells[columnIndex].Value = dateForm.SelectedDate.ToString("dd.MM.yyyy");
+                            }
+                        }
+                        break;
+
+                    case 17:
+                        // Предложить пользователю выбрать тип мебели из ComboBox
+                        using (var furnitureForm = new FurnitureForm())
+                        {
+                            if (furnitureForm.ShowDialog() == DialogResult.OK)
+                            {
+                                dataGridView1.Rows[rowIndex].Cells[columnIndex].Value = furnitureForm.SelectedFurniture;
+                            }
+                        }
+                        break;
+
+                    case 19:
+                        // Предложить пользователю выбрать клиента из ComboBox
+                        using (var clientForm = new ClientForm())
+                        {
+                            if (clientForm.ShowDialog() == DialogResult.OK)
+                            {
+                                dataGridView1.Rows[rowIndex].Cells[columnIndex].Value = clientForm.SelectedClient;
+                            }
+                        }
+                        break;
+
+                    default:
+                        MessageBox.Show("Выберите допустимую ячейку.");
+                        break;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите ячейку.");
+            }
+        }
+    }
+
+
+
+}

@@ -136,29 +136,38 @@ namespace ProfitFurniture
         private void Authoriz_Load(object sender, EventArgs e)
         {
             flag = true;
-            textBox2.UseSystemPasswordChar = true; // Установите это свойство при загрузке формы
+            textBox2.PasswordChar = '*';
+            textBox2.UseSystemPasswordChar = true;
+            textBox2.MouseDown += new MouseEventHandler(this.textBox2_MouseDown);
         }
 
         private void textBox1_Click(object sender, EventArgs e)
         {
-            textBox1.Clear();
+
+            if (textBox1.Text == "Логин")
+            {
+                textBox1.Clear();
+            }
         }
 
         private void textBox2_Click(object sender, EventArgs e)
         {
-            textBox2.Clear();
+            if (textBox2.Text == "Пароль")
+            {
+                textBox2.Clear();
+
+            }
         }
 
-        private void checkBoxShowPassword_CheckedChanged(object sender, EventArgs e)
+            private void textBox2_MouseDown(object sender, MouseEventArgs e)
         {
-            if (checkBoxShowPassword.Checked)
-            {
-                textBox2.UseSystemPasswordChar = false;
-            }
-            else
-            {
-                textBox2.UseSystemPasswordChar = true;
-            }
+            textBox2.UseSystemPasswordChar = true;
+        }
+
+        private void textBox2_MouseUp(object sender, MouseEventArgs e)
+        {
+            textBox2.UseSystemPasswordChar = false;
         }
     }
+    
 }
