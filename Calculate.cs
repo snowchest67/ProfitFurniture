@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -570,7 +570,7 @@ namespace ProfitFurniture
 
                 if (res == DialogResult.OK)
                 {
-                    string filename = saveFileDialog1.FileName;
+                    string filename = saveFileDialog1.FileName;//удалить string, сделав глобал
 
                     // Запрашиваем название книги, количество листов и их названия
                     int sheetCount = int.Parse(Interaction.InputBox("Введите количество листов:", "Количество листов"));
